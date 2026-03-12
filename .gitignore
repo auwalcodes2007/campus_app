@@ -1,0 +1,33 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Python Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Flask Instance Folder (Sensitive Configs)
+instance/
+
+# Database Files (if using SQLite)
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment Variables
+.env
+.flaskenv
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project Data and Logs
+*.log
+logs/
+uploads/
