@@ -22,7 +22,7 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         from .models import User
-        return User.session.get(User, user_id)
+        return db.session.get(User, user_id)
     migrate = Migrate(app, db)
 
     # Register blueprints
