@@ -1,8 +1,11 @@
-from . import db
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import mapped_column, Mapped
 from flask_login import UserMixin
 
-
+class Base(DeclarativeBase):
+    pass
+db = SQLAlchemy(model_class=Base)
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'

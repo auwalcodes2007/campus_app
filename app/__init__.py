@@ -1,6 +1,5 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase
+from .models import db
 from flask_login import LoginManager
 from flask_migrate import Migrate
 import os
@@ -8,9 +7,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 # Configurations
-class Base(DeclarativeBase):
-    pass
-db = SQLAlchemy(model_class=Base)
 login_manager = LoginManager()
 
 
