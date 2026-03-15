@@ -23,6 +23,10 @@ def create_app():
     # Initialize extensions
     db.init_app(app)
     login_manager.init_app(app)
+    @login_manager.user_loader
+    def load_user(user_id):
+        from .models import User
+        return User.session.get(User, user_id)
     migrate = Migrate(app, db)
 
     # Register blueprints
