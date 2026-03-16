@@ -4,10 +4,12 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 import os
 from dotenv import load_dotenv
+from flask_bcrypt import Bcrypt
 
 load_dotenv()
 # Configurations
 login_manager = LoginManager()
+bcrypt = Bcrypt()
 
 
 def create_app():
@@ -18,6 +20,7 @@ def create_app():
 
     # Initialize extensions
     db.init_app(app)
+    bcrypt.init_app(app)
     login_manager.init_app(app)
     @login_manager.user_loader
     def load_user(user_id):

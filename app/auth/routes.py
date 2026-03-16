@@ -1,5 +1,9 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
+from flask_login import login_user, logout_user, login_required, current_user
 from .forms import RegisterForm, LoginForm
+from ..models import db, User
+from .. import bcrypt
+
 
 auth_bp = Blueprint('auth' , __name__, template_folder="templates")
 
@@ -8,7 +12,12 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         # Handle registration logic here (e.g., create user, hash password, etc.)
-        pass
+        password = form.password.data
+        password_hash = bcrypt.generate_password_hash(password)
+        new_user = User(email=form.email.data, password=password_hash)
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for('main.home'))
     return render_template("auth/register.html", form=form)
 
 @auth_bp.route("/login", methods=["GET", "POST"])
