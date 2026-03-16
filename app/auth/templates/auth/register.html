@@ -6,16 +6,27 @@
         <h2 class="text-3xl font-extrabold text-center text-gray-800 mb-2">Join CampusFlow</h2>
         <p class="text-center text-gray-500 mb-8 text-sm">Start tracking your path to first class.</p>
         
-        <form action="{{ url_for('auth.register') }}" method="POST" class="space-y-6">
+        <form action="{{ url_for('auth.register') }}" method="POST" class="space-y-6" novalidate>
             {{ form.hidden_tag() }}
             <div>
                 {{ form.email.label(class="block text-sm font-medium text-gray-700 mb-2") }}
                 {{ form.email(class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all", placeholder="name@university.edu") }}
+                {% for error in form.email.errors %}
+                    <span class="text-red-500 text-xs">{{ error }}</span>
+                {% endfor %}
             </div>
             
             <div>
                 {{ form.password.label(class="block text-sm font-medium text-gray-700 mb-2") }}
                 {{ form.password(class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all") }}
+            </div>
+
+            <div>
+                {{ form.confirm_password.label(class="block text-sm font-medium text-gray-700 mb-2") }}
+                {{ form.confirm_password(class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all") }}
+                {% for error in form.confirm_password.errors %}
+                    <span class="text-red-500 text-xs">{{ error }}</span>
+                {% endfor %}
             </div>
 
             {{ form.submit(class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors shadow-lg") }}
