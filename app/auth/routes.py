@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from .forms import RegisterForm, LoginForm
 from ..models import db, User
@@ -26,5 +26,11 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         # Handle login logic here (e.g., verify user, check password, etc.)
-        pass
+        password = form.password.data
+        result = db.session.execute(db.select(User).where(User.email == form.email.data))
+        user = result.scalar()
+        if user and bcrypt.check_password_hash(user.password, password):
+            login_user(user)
+            return redirect(url_for('main.home'))
+        flash('Invalid username or password. Please try again.', 'error')
     return render_template("auth/login.html", form=form)
