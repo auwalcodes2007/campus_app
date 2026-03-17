@@ -5,7 +5,7 @@ main_bp = Blueprint('main', __name__, template_folder="templates")
 
 @main_bp.route("/")
 def home():
-    return "Welcome to the Campus App!"
+    return render_template("main/index.html")
 
 @main_bp.route("/dashboard")
 @login_required
