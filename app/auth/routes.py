@@ -9,6 +9,8 @@ auth_bp = Blueprint('auth' , __name__, template_folder="templates")
 
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.home'))
     form = RegisterForm()
     if form.validate_on_submit():
         # Handle registration logic here (e.g., create user, hash password, etc.)
@@ -23,6 +25,8 @@ def register():
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.home'))
     form = LoginForm()
     if form.validate_on_submit():
         # Handle login logic here (e.g., verify user, check password, etc.)
@@ -34,3 +38,9 @@ def login():
             return redirect(url_for('main.home'))
         flash('Invalid username or password. Please try again.', 'error')
     return render_template("auth/login.html", form=form)
+
+@auth_bp.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main.home'))
