@@ -35,7 +35,7 @@ def login():
         user = result.scalar()
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('main.home'))
+            return redirect(url_for('auth.dashboard'))
         flash('Invalid username or password. Please try again.', 'error')
     return render_template("auth/login.html", form=form)
 
