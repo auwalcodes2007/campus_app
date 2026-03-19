@@ -29,6 +29,9 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = LoginForm()
+    # If the user clicked our "Login here" link from the register page
+    if request.method == 'GET' and request.args.get('email'):
+        form.email.data = request.args.get('email')
     if form.validate_on_submit():
         # Handle login logic here (e.g., verify user, check password, etc.)
         result = db.session.execute(db.select(User).where(User.email == form.email.data))
