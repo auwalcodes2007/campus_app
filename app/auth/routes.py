@@ -36,7 +36,6 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
             next_page = request.args.get('next')
-            print(next_page)
             if not next_page or urlparse(next_page).netloc != '':
                 next_page = url_for('main.dashboard')
             return redirect(next_page)
