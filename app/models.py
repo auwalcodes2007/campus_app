@@ -26,7 +26,7 @@ class Course(db.Model):
     course_code: Mapped[str] = mapped_column(nullable=False)
     course_name: Mapped[str] = mapped_column(nullable=False) 
     credit_units: Mapped[int] = mapped_column(nullable=False)
-    grade_points: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    grade_point: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     semester: Mapped[str] = mapped_column(nullable=False)
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
