@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, NumberRange, Optional
 class CourseForm(FlaskForm):
     course_code = StringField("Course Code", validators=[DataRequired()])
     course_name = StringField("Course Name", validators=[DataRequired()])
-    credit_units = IntegerField("Credit Units", validators=[DataRequired(), NumberRange(min=1, max=6)])
+    credit_units = SelectField('Credit Units', choices=[(1, '1'), (2, '2'), (3, '3')], coerce=int)    
     grade_point = FloatField("Grade Point (0.0 - 5.0)", validators=[NumberRange(min=0, max=5), Optional()])
     semester = SelectField("Semester", choices=[
         ("2024/2025-1", "2024/2025 - Semester 1"),
