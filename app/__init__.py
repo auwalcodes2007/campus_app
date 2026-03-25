@@ -22,6 +22,7 @@ def create_app():
 
     # Initialize extensions
     db.init_app(app)
+    migrate = Migrate(app, db)
     csrf.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
@@ -32,7 +33,7 @@ def create_app():
     def load_user(user_id):
         from .models import User
         return db.session.get(User, user_id)
-    migrate = Migrate(app, db)
+    
 
     # Register blueprints
     from .main.routes import main_bp

@@ -14,6 +14,9 @@ class User(db.Model, UserMixin):
     id: Mapped[int] = mapped_column(primary_key=True)
     email: Mapped[str] = mapped_column(nullable=False, unique=True)
     password: Mapped[str] = mapped_column(nullable=False)
+    # Defaults so user could still change in profile settings
+    university: Mapped[str] = mapped_column(default="Nile University")
+    current_level: Mapped[int] = mapped_column(default=200)
 
     courses: Mapped[list["Course"]] = relationship(back_populates="user", cascade="all, delete-orphan")
 

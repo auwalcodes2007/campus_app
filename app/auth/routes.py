@@ -16,7 +16,7 @@ def register():
     if form.validate_on_submit():
         # Handle registration logic here (e.g., create user, hash password, etc.)
         password = form.password.data
-        password_hash = bcrypt.generate_password_hash(password).decode()
+        password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
         new_user = User(email=form.email.data, password=password_hash)
         db.session.add(new_user)
         db.session.commit()

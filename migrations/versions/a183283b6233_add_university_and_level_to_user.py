@@ -1,8 +1,8 @@
 """add university and level to user
 
-Revision ID: dd64409c47cc
+Revision ID: a183283b6233
 Revises: 590ffc143d7a
-Create Date: 2026-03-25 22:17:59.296437
+Create Date: 2026-03-25 22:37:06.513034
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'dd64409c47cc'
+revision = 'a183283b6233'
 down_revision = '590ffc143d7a'
 branch_labels = None
 depends_on = None
