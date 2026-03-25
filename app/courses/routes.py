@@ -2,13 +2,15 @@ from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
 from ..models import Course, db
 from .forms import CourseForm
+from flask_wtf.csrf import generate_csrf
 
 courses_bp = Blueprint("courses", __name__, template_folder="templates")
 
 @courses_bp.route("/")
 @login_required
 def courses():
-    pass
+    # Current user already has a .courses attribute
+    return render_template("courses/courses.html")
 
 @courses_bp.route("/add", methods=["GET", "POST"])
 @login_required
