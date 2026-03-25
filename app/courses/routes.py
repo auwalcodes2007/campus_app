@@ -15,8 +15,14 @@ def courses():
 def add_course():
     form = CourseForm()
     if form.validate_on_submit():
-        new_course = Course(user=current_user)
-        form.populate_obj(new_course)  # Automatically populate the Course object from the form data
+        new_course = Course(
+            course_code=form.course_code.data,
+            course_name=form.course_name.data,
+            credit_units=form.credit_units.data,
+            grade_point=form.grade_point.data,
+            semester=form.semester.data,
+            user=current_user
+        )
 
         try:
             db.session.add(new_course)
