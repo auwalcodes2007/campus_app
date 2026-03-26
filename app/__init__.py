@@ -1,11 +1,11 @@
-from flask import Flask
+from flask import Flask, flash, redirect, url_for
 from .models import db
 from flask_login import LoginManager
 from flask_migrate import Migrate
 import os
 from dotenv import load_dotenv
 from flask_bcrypt import Bcrypt
-from flask_wtf.csrf import CSRFProtect
+from flask_wtf.csrf import CSRFProtect, CSRFError
 
 load_dotenv()
 # Configurations
@@ -33,7 +33,11 @@ def create_app():
     def load_user(user_id):
         from .models import User
         return db.session.get(User, user_id)
-    
+    @app.errorhandler(CSRFError)
+    def handle_csrf_error(e):
+        # Send user a message rather than a crash and redirect them back to courses page
+        flash("Your session expired or the security token is invalid. Please try again.", "danger")
+        return redirect(url_for("courses.courses"))
 
     # Register blueprints
     from .main.routes import main_bp

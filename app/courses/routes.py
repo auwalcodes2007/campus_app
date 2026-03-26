@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, abort
 from flask_login import login_required, current_user
 from ..models import Course, db
 from .forms import CourseForm
@@ -9,7 +9,7 @@ courses_bp = Blueprint("courses", __name__, template_folder="templates")
 @courses_bp.route("/")
 @login_required
 def courses():
-    # Current user already has a .courses attribute
+    # Current user already has a .courses attribute thus no need to query all courses
     return render_template("courses/courses.html")
 
 @courses_bp.route("/add", methods=["GET", "POST"])
@@ -41,9 +41,24 @@ def add_course():
 @courses_bp.route("/<int:id>/edit", methods=["GET", "POST"])
 @login_required
 def edit_course(id):
-    pass
+    course = db.get_or_404(Course, id)
+    if course.user_id != current_user.id:
+        abort(403)
+    form = CourseForm(obj=course)
+    if form.validate_on_submit():
+        form.populate_obj(course)
+        db.session.commit()
+        flash(f"You have successfully updated {course.course_code}", "success")
+        return redirect(url_for("courses.courses"))
+    return render_template("courses/edit_course.html", form=form, course=course)
 
 @courses_bp.route("/<int:id>/delete", methods=["POST"])
 @login_required
 def delete_course(id):
-    pass
+    course = db.get_or_404(Course, id)
+    if course.user_id != current_user.id:
+        abort(403)
+    db.session.delete(course)
+    db.session.commit()
+    flash(f"{course.course_code} has been removed from your tracker.", "success")
+    return redirect(url_for("courses.courses"))

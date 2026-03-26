@@ -7,7 +7,7 @@ class CourseForm(FlaskForm):
     course_code = StringField("Course Code", validators=[DataRequired()])
     course_name = StringField("Course Name", validators=[DataRequired()])
     credit_units = SelectField('Credit Units', choices=[(i, str(i)) for i in range(1, 7)], coerce=int, validators=[DataRequired()])    
-    grade_point = FloatField("Grade Point (0.0 - 5.0)", validators=[NumberRange(min=0, max=5), Optional()])
+    grade_point = FloatField("Grade Point (0.0 - 5.0)", validators=[NumberRange(min=0, max=5, message="Grade Point must be between %(min)s and %(max)s"), Optional()])
     semester = SelectField("Semester", choices=[
         ("2024/2025-1", "2024/2025 - Semester 1"),
         ("2024/2025-2", "2024/2025 - Semester 2"),

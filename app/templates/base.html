@@ -28,6 +28,10 @@
                            class="text-sm font-medium {% if request.endpoint == 'main.dashboard' %}text-blue-600{% else %}text-gray-600 hover:text-blue-600{% endif %} transition-colors">
                             Dashboard
                         </a>
+                        <a href="{{ url_for('courses.courses') }}" 
+                           class="text-sm font-medium {% if request.endpoint == 'main.dashboard' %}text-blue-600{% else %}text-gray-600 hover:text-blue-600{% endif %} transition-colors">
+                            My Courses
+                        </a>
                         <a href="{{ url_for('auth.logout') }}" 
                            class="bg-gray-900 text-white px-5 py-2 rounded-xl text-sm font-bold shadow-md hover:bg-gray-800 hover:shadow-lg transition-all active:scale-95">
                             Logout
