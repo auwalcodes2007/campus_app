@@ -10,7 +10,7 @@ class CourseForm(FlaskForm):
     grade_point = SelectField("Final Grade", choices=[(None, "Ongoing"), (5.0, "A"), (4.0, "B"), (3.0, "C"), (2.0, "D"), (0.0, "F")], coerce= lambda x: float(x) if x not in ["None", None, ""] else None,validators=[Optional()])
     target_grade_point = SelectField("Target Grade", choices=[(5.0, "A"), (4.0, "B"), (3.0, "C"), (2.0, "D"), (0.0, "F")], validators=[Optional()])
     ca_score = DecimalField("Your CA Score", validators=[NumberRange(min=0, max=40), Optional()])
-    ca_max_score = DecimalField("Max CA Score", default=40.0, validators=[Optional()])
+    ca_max_score = DecimalField("Max CA Score", default=40.0, validators=[NumberRange(min=0, max=40), Optional()])
     semester = SelectField("Semester", choices=[
         ("2024/2025-1", "2024/2025 - Semester 1"),
         ("2024/2025-2", "2024/2025 - Semester 2"),
