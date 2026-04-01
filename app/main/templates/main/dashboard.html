@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% set gpa_stats = current_user.get_gpa_stats() %}
 <div class="space-y-8">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -13,6 +14,26 @@
             </button>
         </div>
     </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-blue-500">
+        <p class="text-gray-500 text-sm font-medium">Current Semester GPA</p>
+        <h3 class="text-3xl font-black text-gray-900 mt-1">{{ gpa_stats.current }}</h3>
+        <p class="text-xs text-blue-500 mt-2">Based on graded courses</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-green-500">
+        <p class="text-gray-500 text-sm font-medium">Max Possible (Best Case)</p>
+        <h3 class="text-3xl font-black text-gray-900 mt-1 text-green-600">{{ gpa_stats.best }}</h3>
+        <p class="text-xs text-gray-400 mt-2">If you get straight A's</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-purple-500">
+        <p class="text-gray-500 text-sm font-medium">Safe Estimate (Floor)</p>
+        <h3 class="text-3xl font-black text-gray-900 mt-1 text-purple-600">{{ gpa_stats.safe }}</h3>
+        <p class="text-xs text-gray-400 mt-2">If you get straight C's</p>
+    </div>
+</div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
