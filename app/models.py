@@ -32,6 +32,7 @@ class User(db.Model, UserMixin):
             if course.grade_point is not None:
                 graded_units += units
                 quality_points += (units * course.grade_point)
+
         # Current gpa for only finished courses
         current_gpa = (quality_points / graded_units) if graded_units > 0 else 0.0
         # Best case (assume 5.0 for unfinished courses)
@@ -41,6 +42,7 @@ class User(db.Model, UserMixin):
         # Safe case (assume 3.0 for unfinished courses)
         safe_case_points = quality_points + (ungraded_units * 3)
         safe_case_gpa = safe_case_points / total_units if total_units > 0 else 0.0
+        
 
         return {
             "current": round(current_gpa, 2),
